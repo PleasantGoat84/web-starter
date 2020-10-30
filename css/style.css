@@ -1,0 +1,106 @@
+:root {
+  --header-hight: 50px;
+  --animation-speed: 0.15s;
+}
+
+/* menu toggle things */
+
+#toggle-icon {
+  --side-length: calc(var(--header-hight) * 0.5);
+  /* height: var(--side-length); */
+  width: var(--side-length);
+}
+
+#toggle-icon span {
+  --opactiy-speed: 0.01s;
+  --height-divider: 7;
+  --span-height: calc(var(--side-length) / var(--height-divider));
+
+  display: block;
+  height: var(--span-height);
+  background-color: white;
+
+  /* animation stuffs */
+
+  position: relative;
+  transition: transform var(--animation-speed) ease-in-out,
+    top var(--animation-speed) ease-in-out var(--animation-speed),
+    opacity var(--opactiy-speed) linear var(--animation-speed);
+  top: 0;
+  opacity: 1;
+}
+
+#toggle-icon span:nth-child(2) {
+  margin: var(--span-height) 0;
+}
+
+#menu-toggle:checked ~ header #toggle-icon span {
+  --top-change: calc(var(--span-height) * 2);
+  /* before checked */
+  transition: top var(--animation-speed) ease-in-out,
+    transform var(--animation-speed) ease-in-out var(--animation-speed);
+}
+
+#menu-toggle:checked ~ header #toggle-icon span:nth-child(1) {
+  transform: rotate(45deg);
+  top: var(--top-change);
+}
+
+#menu-toggle:checked ~ header #toggle-icon span:nth-child(2) {
+  opacity: 0;
+  transition: opacity var(--opactiy-speed) linear var(--animation-speed);
+}
+
+#menu-toggle:checked ~ header #toggle-icon span:nth-child(3) {
+  transform: rotate(-45deg);
+  top: calc(var(--top-change) * -1);
+}
+
+/* time for nav menu animation */
+
+nav {
+  --item-count: 4;
+  --item-height: 55px;
+
+  max-height: 0;
+
+  transition: max-height calc(var(--animation-speed) * (var(--item-count) + 1))
+    ease-in-out;
+}
+
+#menu-toggle:checked ~ nav {
+  max-height: calc(var(--item-count) * var(--item-height) + 5px);
+}
+
+/* and carousel styling */
+
+#main-carousel .carousel-inner {
+  --carousel-height: 225px;
+  height: var(--carousel-height);
+}
+
+/* - - - - - - - - - - */
+
+header {
+  z-index: 80;
+
+  height: var(--header-hight);
+  background-color: blue;
+}
+
+nav {
+  z-index: 70;
+  margin-top: var(--header-hight);
+}
+
+nav .nav-link {
+  --p: 0.75em;
+  padding-top: var(--p);
+  padding-bottom: var(--p);
+
+  border-bottom: 1px solid #dee2e6;
+}
+
+main {
+  padding-top: var(--header-hight);
+}
